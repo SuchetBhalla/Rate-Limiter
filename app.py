@@ -52,7 +52,7 @@ def allow_request():
         # If rate-limit (per minute) has been exceeded
         if len(user_timestamps) >= rate_limit:
             logging.error(f"Rate limit reached by {user_id} @ {ip_address}")
-            return jsonify(message= f"Access Denied to {user_id} @ {ip_address} : Rate limit reached"), 429
+            return jsonify(message= f"Access Denied  to {user_id} @ {ip_address} :: Rate limit reached"), 429
 
         # Else record the current time-stamp
         user_timestamps.append(time.time())
