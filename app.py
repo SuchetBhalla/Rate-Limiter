@@ -22,9 +22,13 @@ requests_lock = threading.Lock()
 
 # This function removes timestamps, which are older than 60 seconds (for a specific user)
 def clear_expired_requests(user_timestamps):
-    for timestamp in reversed(user_timestamps):
-        if time.time() - timestamp >= 60:
-            user_timestamps.pop()
+    now = time.time()
+    tmp = []
+    # Excludes expired timestamps
+    for timestamp in user_timestamps:
+        if now - timestamp < 60:
+            tmp.append(timestamp)
+    return tmp
 
 # This function implements rate-limiting with the Sliding Window algorithm
 def allow_request():
@@ -47,7 +51,7 @@ def allow_request():
         user_timestamps = requests.get(key, [])
 
         # Removes timestamps older than 60 seconds (for this user)
-        clear_expired_requests(user_timestamps)
+        user_timestamps = clear_expired_requests(user_timestamps)
 
         # If rate-limit (per minute) has been exceeded
         if len(user_timestamps) >= rate_limit:
