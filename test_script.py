@@ -21,10 +21,15 @@ def make_requests(user_id, ip_address, num_requests):
         # Delays consecutive-requests by 1 second
         time.sleep(1)
 
+        # Put the process to sleep for 60 seconds, after 4 iterations 
+        if i == 3:
+            print(f"Waiting for 60 seconds, before making the next request :: Process #{current_process().pid}")
+            time.sleep(60)
+
 if __name__ == '__main__':
 
     # Number of requests each process will make
-    requests_per_process = 4
+    requests_per_process = 6
 
     # 4 user-IDs (& IP-addresses) for testing
     num_processes = 4
