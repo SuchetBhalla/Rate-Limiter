@@ -1,4 +1,4 @@
-# Sliding Window Alogrithm
+# Sliding Window Algorithm
 
 1. This app was created on Windows 11, with Python 3.9.12
 
